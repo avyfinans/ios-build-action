@@ -5,13 +5,14 @@ platform :ios do
   lane :export_ipa do
     decode_file
 
-    keychain_password = SecureRandom.uuid
+    keychain_password = ENV['KEYCHAIN_PASSWORD']
 
     create_keychain(
       name: 'ios-build.keychain',
       password: keychain_password,
       default_keychain: true,
       unlock: true,
+      lock_when_sleeps: false,
       timeout: 3600
     )
 
